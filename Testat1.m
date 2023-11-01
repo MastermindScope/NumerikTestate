@@ -49,13 +49,20 @@ s2m = 0.41421356237309504880168872420969807856967187537694807317667;
 % sqrt2 in Binär Stelle vor dem Komma: 1
 % sqrt2 in Binär nach dem Komma:
 l = s2m;
+
+
+m=l;
+% implementierung meines Algorithmus für die Berechnung der Bits für die
+% Mantisse
 for i = 1:50
-    l = l*2;
-    if (l) > 1
-        l = l-1;
-        dig(i)=1;
-    else
+    mprime = 2*m;
+    mprimeprime = 2*(m-0.5);
+    if mprime < 1
         dig(i)=0;
+        m = mprime;
+    elseif mprimeprime < 1
+        m = mprimeprime;
+        dig(i)=1;
     end
 end
 
