@@ -43,7 +43,47 @@ disp(eff)
 %% Aufgabe 2
 
 
+s2e = 1.41421356237309504880168872420969807856967187537694807317667;
+s2m = 0.41421356237309504880168872420969807856967187537694807317667;
 
+% sqrt2 in Binär Stelle vor dem Komma: 1
+% sqrt2 in Binär nach dem Komma:
+l = s2m;
+for i = 1:50
+    l = l*2;
+    if (l) > 1
+        l = l-1;
+        dig(i)=1;
+    else
+        dig(i)=0;
+    end
+end
+
+% IEEE single point precision ist 32 bits 
+% (-1)^b31 * 2^(b30...b23-127)*(1.b23....b0)
+% bit 31 is sign, 0 in our case
+% bit 30 to 23 are the exponent, (digits before comma) = e - 127 in binary ->
+% 127 -> 01111111
+% bit 22 to 0 are digits after the comma -> 1 from before the comma and
+% then 22 bits from dig
+s2b = 1;
+exponent = 0;
+expBits = [1,1,1,1,1,1,1,0];
+for i=0:7
+    exponent = exponent+2^i*expBits(i+1);
+end
+
+
+
+for i = 1:23
+    s2b = s2b+dig(i)*2^(-i);
+end
+
+s2b = (-1)^0*2^(exponent-127)*s2b;
+
+s2 = single(sqrt(2));
+
+err2 = abs(s2e-s2b)/s2e;
 
 
 
