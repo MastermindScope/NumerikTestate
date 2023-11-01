@@ -52,7 +52,7 @@ l = s2m;
 
 
 m=l;
-% implementierung meines Algorithmus für die Berechnung der Bits für die
+% implementierung meines Algorithmus für die Berechnung der Bits für der
 % Mantisse
 for i = 1:50
     mprime = 2*m;
@@ -90,8 +90,13 @@ s2b = (-1)^0*2^(exponent-127)*s2b;
 
 s2 = single(sqrt(2));
 
-err2 = abs(s2e-s2b)/s2e;
+err2 = abs(s2e-s2b);
+disp("Absoluter Fehler: ")
+disp(err2)
 
+err2 = abs(s2e-s2b)/s2e;
+disp("Relativer Fehler: ")
+disp(err2)
 
 
 
