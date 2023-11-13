@@ -152,7 +152,7 @@ disp("auch hier steigt der Fehler wieder, er sinkt aber zuerst schneller")
 
 
 % (a)
-eps = logspace(-8,-2,7);
+eps = logspace(-10,-2,9);
 
 
 diffDoub = cos(double(eps))-1;
@@ -167,16 +167,22 @@ diffSing = (cos(single(eps))-1);
 % (c)
 
 
-err = abs(diffDoub-diffSing)./diffDoub;
+err = abs((diffDoub-double(diffSing))./diffDoub);
+errabs = abs(diffDoub-double(diffSing));
 
 figure;
 loglog(eps,err);
 title("Relativer Fehler über eps")
 
+figure;
+loglog(eps,errabs);
+title("Absoluter Fehler über eps")
+
 % (d)
 
-disp("Ein Fehler taucht erst bei ausreichend großen epsilon auf. " + ...
-    "Sonst ist Epsilon so klein, dass es keinen Unterschied mehr macht.")
+disp("Der Fehler steigt mit sinkendem Epsilon, " + ...
+    "da durch die schlechte Konditionierung der Subtraktion" + ...
+    "die Konditionszahl so stark ansteigt, dass der Relative Fehler in die Höhe schießt")
 
 
 
