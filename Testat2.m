@@ -52,6 +52,7 @@ close all
 
 x = 0:1e-3:1;
 
+%analytische Lösung der DGLn
 T1 = csc(1)*sin(x)-x;
 T2 = -x.^2 -2*cos(x) + (2*cos(1) - 1)*csc(1)*sin(x)+2;
 
@@ -110,4 +111,6 @@ sprintf("Der Fehler pro Zehnerpotenz in h sinkt um zwei Zehnerpotenzen")
 
 figure(102)
     loglog(h,kappa)
+    xlabel("Schrittweite h")
+    ylabel("Konditionszahl")
 sprintf("Die Konditionszahl von M wächst mit zunehmmender Feinheit des Netzes exponentiell")

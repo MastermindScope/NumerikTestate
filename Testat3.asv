@@ -1,0 +1,68 @@
+%% Vinzenz Götz, Testat 3
+clear
+clc
+close all
+
+
+%% Aufgabe 2
+
+% 1)
+n = 100;
+xmin = -2;
+xmax = 2;
+ymin = -2;
+ymax = 2.5;
+x = ones(n,1).*linspace(xmin,xmax,n);
+y = (linspace(ymin,ymax,n)').*ones(1,n);
+
+surf(x,y,g(x,y))
+
+% 2)
+
+syms xsym ysym
+
+gsym = .4 - .1*(5*xsym^2+5*ysym^2+3*xsym*ysym-xsym-2*ysym)*exp(-(xsym^2+ysym^2));
+
+gra = gradient(gsym);
+
+graSol = solve(gra(1) == 0, gra(2) == 0,xsym,ysym);
+
+jac = jacobian(gra,[xsym, ysym]);
+
+x0 = [-0.8 0.5 1];
+y0 = [-0.8 -0.5 0.5];
+
+for i = 1:length(x0)
+    p = newton(gsym,[x0(i); y0(i)],1e-5);
+    fprintf('Für die Startwerte %1.1f und %1.1f landet man bei in %1.4f, %1.4f\n',x0(i), y0(i), p(1), p(2))
+end
+
+
+fprintf('Startwerte %1.1f und %1.1f divergieren\n', -0.9, -0.9)
+fprintf('Die Startwerte %1.1f, %1.1f führen auf einen Sattelpunkt\n', x0(2), y0(2))
+fprintf('Die Startwerte %1.1f, %1.1f wurden so gewä\n', x0(3), y0(3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% funtions
+
+function res = g(x,y)
+
+    res = 2/5 - .1*(5*x.^2+5*y.^2+3*x.*y-x-2*y).*exp(-(x.^2+y.^2));
+
+end
